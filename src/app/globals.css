@@ -1,26 +1,87 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@theme {
+  /* Surfaces */
+  --color-ink: #000000;
+  --color-shot-a: #101014;
+  --color-shot-b: #08080a;
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  /* Rules and borders, lightest to strongest */
+  --color-hairline: #17171b;
+  --color-line: #1e1e24;
+  --color-chip: #22222a;
+  --color-line-strong: #2a2a31;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  /* Text, brightest to faintest */
+  --color-fg: #e8e8ea;
+  --color-code: #c8c8d0;
+  --color-dim: #9a9aa4;
+  --color-dim-2: #8e8e98;
+  --color-label: #7a7a83;
+  --color-ghost: #6f6f79;
+  --color-meta: #6b6b75;
+  --color-index: #3a3a42;
+  --color-gutter: #2f2f37;
+
+  /* Accent */
+  --color-accent: #7dd3a0;
+  --color-accent-ink: #05100a;
+  --color-accent-line: #1f3328;
+  --color-accent-bg: #08140d;
+
+  /* Syntax highlighting */
+  --color-syn-keyword: #c084d8;
+  --color-syn-prop: #6b9fe0;
+  --color-syn-string: #d8b06a;
+  --color-syn-number: #e0836b;
+
+  --font-sans: var(--font-space-grotesk), system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, monospace;
+
+  --animate-caret: caret 1.1s step-end infinite;
+
+  @keyframes caret {
+    0%,
+    49% {
+      opacity: 1;
+    }
+    50%,
+    100% {
+      opacity: 0;
+    }
   }
 }
 
+html {
+  scroll-behavior: smooth;
+  background: var(--color-ink);
+}
+
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-ink);
+  color: var(--color-fg);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--color-accent);
+  color: var(--color-accent-ink);
+}
+
+:focus-visible {
+  outline: 1px solid var(--color-accent);
+  outline-offset: 3px;
+}
+
+/* The caret is the only animation on the page, so silencing the token is
+   enough — no blanket `!important` reset needed. */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --animate-caret: none;
+  }
+
+  html {
+    scroll-behavior: auto;
+  }
 }
